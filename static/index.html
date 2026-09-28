@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RETRO-BOT 97 — Official Homepage</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <table class="page" cellpadding="0" cellspacing="8" width="780" align="center">
+    <tr>
+      <td colspan="2" class="banner">
+        <div class="banner-inner">
+          <h1><span class="blink">★</span> RETRO-BOT 97 <span class="blink">★</span></h1>
+          <p class="tagline">The Information Superhighway Chatterbot — Est. October 14, 1997</p>
+          <p class="marquee-wrap"><marquee scrollamount="5">
+            WELCOME TO MY HOMEPAGE &nbsp;♦&nbsp; BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 @ 800×600 &nbsp;♦&nbsp;
+            Y2K COMPLIANT??? WHO KNOWS &nbsp;♦&nbsp; SIGN THE GUESTBOOK &nbsp;♦&nbsp; NO FRAMES SORRY
+          </marquee></p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="sidebar" width="170" valign="top">
+        <div class="panel">
+          <div class="panel-title">Navigation</div>
+          <ul class="nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="#chat">Chat Room</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://web.archive.org/" target="_blank" rel="noopener">Wayback? huh?</a></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Webrings</div>
+          <p class="tiny">[prev] <b>90s Chatbots</b> [next]<br>This site is a member of the <i>Cool Chatterbot Ring</i>.</p>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Awards</div>
+          <p class="badge">★★★ COOL SITE<br>OF THE MINUTE ★★★</p>
+          <p class="tiny">Hit counter:</p>
+          <p class="counter" id="hits">0001337</p>
+        </div>
+        <p class="construction">🚧 UNDER CONSTRUCTION 🚧</p>
+      </td>
+      <td valign="top">
+        <div class="panel win95" id="chat">
+          <div class="titlebar">
+            <span>mIRC - #retrobot97 on EFnet</span>
+            <span class="win-btns">_ □ ×</span>
+          </div>
+          <p class="status" id="status">* Connecting via 56K modem...</p>
+          <div class="log" id="log"></div>
+          <form id="chat-form" autocomplete="off">
+            <table width="100%" cellpadding="4">
+              <tr>
+                <td width="70"><label for="nick">Nick:</label></td>
+                <td><input id="nick" name="nick" value="Guest" maxlength="20"></td>
+              </tr>
+              <tr>
+                <td><label for="msg">Msg:</label></td>
+                <td>
+                  <input id="msg" name="msg" maxlength="2000" placeholder="Type here and hit ENTER...">
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <button type="submit" id="send">Send / Guestbook</button>
+                  <span class="tiny" id="modem">●●●●●○○○ 33.6 Kbps</span>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class="panel" id="about">
+          <div class="panel-title">About this experimental chatterbot</div>
+          <p>
+            RETRO-BOT thinks it is <b>1997</b>. Ask about Windows 95, Netscape, Tamagotchi,
+            Spice Girls, Deep Blue, or Y2K. If you mention the future it will get confused.
+            This is an educational demo: FastAPI + Gemini, no frontend framework.
+          </p>
+          <p class="tiny">
+            © 1997 RetroChatBot HQ — All rights reserved — MIDI plugin not found
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <script src="/static/app.js"></script>
+</body>
+</html>
