@@ -6,8 +6,30 @@
   const statusEl = document.getElementById("status");
   const hitsEl = document.getElementById("hits");
   const sendBtn = document.getElementById("send");
+  const timeBtn = document.getElementById("time-jump");
+  const chatTitleEl = document.getElementById("chat-title");
 
   const history = [];
+
+  const ERAS = {
+    1997: {
+      bot: "RETRO-BOT",
+      title: "mIRC - #retrobot97 on EFnet",
+      button: ">> TIME MACHINE: JUMP TO 2040",
+      dialing: "* Dialing... kkkkkSHHHHhhhhh... negotiating 56K...",
+      sent: "* Message sent — still 1997, still online",
+      online: "* Connected to cyberspace — Gemini line up (year 1997)",
+    },
+    2040: {
+      bot: "RETRO-BOT 2040",
+      title: "NeuralLink // #retrobot2040 @ orbital-mesh",
+      button: "<< TIME MACHINE: BACK TO 1997",
+      dialing: "* Neural-sync... quantum handshake in 0.0003 ms...",
+      sent: "* Thought transmitted — welcome to 2040",
+      online: "* Quantum mesh online — year 2040",
+    },
+  };
+  let year = 1997;
 
   function padHits(n) {
     return String(n).padStart(7, "0");
@@ -33,7 +55,7 @@
       const res = await fetch("/api/health");
       const data = await res.json();
       if (data.key_configured) {
-        statusEl.textContent = "* Connected to cyberspace — Gemini line up (year 1997)";
+        statusEl.textContent = ERAS[year].online;
       } else {
         statusEl.textContent = "* WARNING: GEMINI_API_KEY missing in .env — chat will fail";
         addLine("err", "*** Server: API key not set. Put GEMINI_API_KEY in .env and restart.");
@@ -44,6 +66,23 @@
   }
 
   pingHealth();
+
+  timeBtn.addEventListener("click", function () {
+    year = year === 1997 ? 2040 : 1997;
+    const era = ERAS[year];
+    document.body.classList.toggle("era-2040", year === 2040);
+    chatTitleEl.textContent = era.title;
+    timeBtn.textContent = era.button;
+    statusEl.textContent = era.online;
+    if (year === 2040) {
+      addLine("sys", "*** ZZZZAP!!! Flux capacitor engaged... 1997 -> 2040");
+      addLine("bot", "<" + era.bot + "> Whoa... 43 yıllık güncelleme indi. Artık 2040'tayım! Ne sormak istersin?");
+    } else {
+      addLine("sys", "*** ZZZZAP!!! Rewinding the timeline... 2040 -> 1997");
+      addLine("bot", "<" + era.bot + "> Hmm, garip bir rüya gördüm... Neyse, 1997'ye hoş geldin! :-)");
+    }
+    msgEl.focus();
+  });
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -58,13 +97,14 @@
     addLine("me", "<" + nick + "> " + text);
     history.push({ role: "user", content: text });
     sendBtn.disabled = true;
-    statusEl.textContent = "* Dialing... kkkkkSHHHHhhhhh... negotiating 56K...";
+    const era = ERAS[year];
+    statusEl.textContent = era.dialing;
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, year: year }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -75,10 +115,10 @@
         return;
       }
       const reply = data.reply || "...";
-      addLine("bot", "<RETRO-BOT> " + reply);
+      addLine("bot", "<" + era.bot + "> " + reply);
       history.push({ role: "assistant", content: reply });
       if (history.length > 24) history.splice(0, history.length - 24);
-      statusEl.textContent = "* Message sent — still 1997, still online";
+      statusEl.textContent = era.sent;
     } catch (err) {
       addLine("err", "*** Network error: " + err);
       history.pop();

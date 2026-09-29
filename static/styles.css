@@ -164,3 +164,74 @@ button:active { border-style: inset; }
 @keyframes blink {
   50% { opacity: 0; }
 }
+
+.time-machine { margin: 0 8px 6px; }
+
+#time-jump {
+  font-weight: bold;
+  color: #800000;
+}
+
+/* ===== 2040 mode ===== */
+body.era-2040 {
+  background: radial-gradient(circle at 50% 0%, #1a0b3d, #05010f 70%);
+  color: #e0f7ff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body.era-2040 .page {
+  background: rgba(10, 15, 40, 0.9);
+  color: #e0f7ff;
+  border: 1px solid #00f0ff;
+  border-radius: 12px;
+  box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+}
+
+body.era-2040 .banner,
+body.era-2040 .sidebar { background: transparent; }
+
+body.era-2040 h1 {
+  color: #00f0ff;
+  text-shadow: 0 0 12px #ff00e6;
+}
+
+body.era-2040 .panel,
+body.era-2040 .win95 {
+  background: rgba(20, 30, 70, 0.7);
+  border: 1px solid #3a4b8c;
+  border-radius: 8px;
+}
+
+body.era-2040 .panel-title,
+body.era-2040 .titlebar {
+  background: linear-gradient(90deg, #ff00e6, #00f0ff);
+  color: #05010f;
+  border-radius: 8px 8px 0 0;
+}
+
+body.era-2040 .log {
+  background: #05010f;
+  border: 1px solid #00f0ff;
+  border-radius: 6px;
+}
+
+body.era-2040 .line.bot { color: #ff7af5; }
+body.era-2040 .line.me { color: #00f0ff; }
+body.era-2040 .status { color: #7affc1; }
+body.era-2040 .tiny,
+body.era-2040 form table { color: #b8c7ff; }
+
+body.era-2040 input {
+  background: #0b1030;
+  color: #e0f7ff;
+  border: 1px solid #00f0ff;
+  border-radius: 4px;
+}
+
+body.era-2040 button {
+  background: linear-gradient(90deg, #ff00e6, #00f0ff);
+  color: #05010f;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 14px;
+}

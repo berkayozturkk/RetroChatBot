@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Literal
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
@@ -9,7 +10,7 @@ from google import genai
 from google.genai import types
 from pydantic import BaseModel, Field
 
-from prompt import SYSTEM_PROMPT
+from prompt import SYSTEM_PROMPTS
 
 ROOT = Path(__file__).resolve().parent
 load_dotenv(ROOT / ".env")
@@ -31,12 +32,13 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[ChatMessage] = Field(min_length=1, max_length=40)
+    year: Literal[1997, 2040] = 1997
 
 
 class ChatResponse(BaseModel):
     reply: str
     model: str
-    year: int = 1997
+    year: int
 
 
 def _to_gemini_contents(messages: list[ChatMessage]) -> list[types.Content]:
@@ -87,7 +89,7 @@ async def chat(req: ChatRequest):
             model=GEMINI_MODEL,
             contents=contents,
             config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
+                system_instruction=SYSTEM_PROMPTS[req.year],
                 temperature=0.85,
             ),
         )
@@ -96,6 +98,6 @@ async def chat(req: ChatRequest):
 
     reply = (response.text or "").strip()
     if not reply:
-        reply = "*statik* ... bağlantı koptu. (56K) Tekrar dener misin?"
+        reply = "*statik* ... bağlantı koptu. Tekrar dener misin?"
 
-    return ChatResponse(reply=reply, model=GEMINI_MODEL)
+    return ChatResponse(reply=reply, model=GEMINI_MODEL, year=req.year)
